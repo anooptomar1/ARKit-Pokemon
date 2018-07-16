@@ -115,7 +115,21 @@ class ViewController: UIViewController {
 extension ViewController: ARSCNViewDelegate {
 
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        guard let imageAnchor = anchor as? ARImageAnchor else { return }
+        let referenceImage = imageAnchor.referenceImage
+        let imageName = referenceImage.name ?? "no name"
 
+        let plane = SCNPlane(width: referenceImage.physicalSize.width, height: referenceImage.physicalSize.height)
+        let planeNode = SCNNode(geometry: plane)
+        planeNode.opacity = 0.20
+        planeNode.eulerAngles.x = -.pi / 2
+
+        planeNode.runAction(self.fadeAction)
+
+        node.addChildNode(planeNode)
+        DispatchQueue.main.async {
+            self.label.text = "Image detected: \"\(imageName)\""
+        }
     }
 
     func getPlaneNode(withReferenceImage image: ARReferenceImage) -> SCNNode {
