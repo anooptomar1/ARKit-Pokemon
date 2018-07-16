@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     let waitDuration: TimeInterval = 0.5
 
     @IBOutlet weak var sceneView: ARSCNView!
+    @IBOutlet weak var label: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,7 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let configuration = ARWorldTrackingConfiguration()
+        resetTrackingConfiguration()
         sceneView.session.run(configuration)
     }
 
@@ -96,7 +98,16 @@ class ViewController: UIViewController {
     }()
 
     @IBAction func resetButtonDidTouch(_ sender: UIBarButtonItem) {
+        resetTrackingConfiguration()
 
+    }
+    func resetTrackingConfiguration() {
+        guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) else { return }
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.detectionImages = referenceImages
+        let options: ARSession.RunOptions = [.resetTracking, .removeExistingAnchors]
+        sceneView.session.run(configuration, options: options)
+        label.text = "Move camera around to detect images"
     }
 
 }
