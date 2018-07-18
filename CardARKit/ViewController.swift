@@ -12,7 +12,7 @@ import ARKit
 class ViewController: UIViewController {
 
     let fadeDuration: TimeInterval = 0.3
-    let rotateDuration: TimeInterval = 3
+    let rotateDuration: TimeInterval = 5
     let waitDuration: TimeInterval = 0.5
 
     @IBOutlet weak var sceneView: ARSCNView!
@@ -21,32 +21,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLighting()
-//        addPokemon()
         sceneView.delegate = self
-    }
-
-    func addEevee(x: Float = 0, y: Float = 0.2, z: Float = -0.5) {
-        guard let pokemonScene = SCNScene(named: "art.scnassets/eevee.scn") else { return }
-        let pokemonNode = SCNNode()
-        let pokemonSceneChildNodes = pokemonScene.rootNode.childNodes
-        for childNode in pokemonSceneChildNodes {
-            pokemonNode.addChildNode(childNode)
-        }
-        pokemonNode.position = SCNVector3(x, y, z)
-        pokemonNode.runAction(.fadeIn(duration: 1))
-        sceneView.scene.rootNode.addChildNode(pokemonNode)
-    }
-
-    func addMewtwo(x: Float = 0, y: Float = 0.2, z: Float = -0.5) {
-        guard let pokemonScene = SCNScene(named: "art.scnassets/mewtwo.scn") else { return }
-        let pokemonNode = SCNNode()
-        let pokemonSceneChildNodes = pokemonScene.rootNode.childNodes
-        for childNode in pokemonSceneChildNodes {
-            pokemonNode.addChildNode(childNode)
-        }
-        pokemonNode.position = SCNVector3(x, y, z)
-        pokemonNode.runAction(.fadeIn(duration: 1))
-        sceneView.scene.rootNode.addChildNode(pokemonNode)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -84,30 +59,34 @@ class ViewController: UIViewController {
             ])
     }()
 
-    lazy var treeNode: SCNNode = {
-        guard let scene = SCNScene(named: "tree.scn"),
-            let node = scene.rootNode.childNode(withName: "tree", recursively: false) else { return SCNNode() }
-        let scaleFactor = 0.005
-        node.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
-        node.eulerAngles.x = -.pi / 2
-        return node
-    }()
-
     lazy var eeveeNode: SCNNode = {
-        guard let scene = SCNScene(named: "art.scnassets/eevee.scn"),
-            let node = scene.rootNode.childNode(withName: "eevee", recursively: false) else { return SCNNode() }
-        let scaleFactor  = 0.9
-        node.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
-        return node
+        guard let pokemonScene = SCNScene(named: "art.scnassets/eevee.scn") else { return SCNNode() }
+        let pokemonNode = SCNNode()
+        let pokemonSceneChildNodes = pokemonScene.rootNode.childNodes
+        for childNode in pokemonSceneChildNodes {
+            pokemonNode.addChildNode(childNode)
+        }
+        return pokemonNode
     }()
 
-    lazy var mountainNode: SCNNode = {
-        guard let scene = SCNScene(named: "mountain.scn"),
-            let node = scene.rootNode.childNode(withName: "mountain", recursively: false) else { return SCNNode() }
-        let scaleFactor  = 0.25
-        node.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
-        node.eulerAngles.x += -.pi / 2
-        return node
+    lazy var mewtwoNode: SCNNode = {
+        guard let pokemonScene = SCNScene(named: "art.scnassets/mewtwo.scn") else { return SCNNode() }
+        let pokemonNode = SCNNode()
+        let pokemonSceneChildNodes = pokemonScene.rootNode.childNodes
+        for childNode in pokemonSceneChildNodes {
+            pokemonNode.addChildNode(childNode)
+        }
+        return pokemonNode
+    }()
+
+    lazy var bulbasaurNode: SCNNode = {
+        guard let pokemonScene = SCNScene(named: "art.scnassets/bulbasaur.scn") else { return SCNNode()}
+        let pokemonNode = SCNNode()
+        let pokemonSceneChildNodes = pokemonScene.rootNode.childNodes
+        for childNode in pokemonSceneChildNodes {
+            pokemonNode.addChildNode(childNode)
+        }
+        return pokemonNode
     }()
 
     @IBAction func resetButtonDidTouch(_ sender: UIBarButtonItem) {
@@ -132,20 +111,10 @@ extension ViewController: ARSCNViewDelegate {
             guard let imageAnchor = anchor as? ARImageAnchor,
                 let imageName = imageAnchor.referenceImage.name else { return }
 
-            // TODO: Comment out code
-            //            let planeNode = self.getPlaneNode(withReferenceImage: imageAnchor.referenceImage)
-            //            planeNode.opacity = 0.0
-            //            planeNode.eulerAngles.x = -.pi / 2
-            //            planeNode.runAction(self.fadeAction)
-            //            node.addChildNode(planeNode)
-
             // TODO: Overlay 3D Object
             let overlayNode = self.getNode(withImageName: imageName)
-            overlayNode.opacity = 0
-            overlayNode.position.y = 0.2
-//            overlayNode.runAction(self)
+            overlayNode.runAction(self.fadeAndSpinAction)
             node.addChildNode(overlayNode)
-
             self.label.text = "Image detected: \"\(imageName)\""
         }
     }
@@ -161,15 +130,51 @@ extension ViewController: ARSCNViewDelegate {
         var node = SCNNode()
         switch name {
         case "eevee":
-            addEevee()
+            node = eeveeNode
         case "mewtwo":
-            addMewtwo()
-        case "Trees In the Dark":
-            node = treeNode
+            node = mewtwoNode
+        case "bulbasaur":
+            node = bulbasaurNode
         default:
             break
         }
         return node
     }
-
 }
+
+//    func addEevee(x: Float = 0, y: Float = 0.2, z: Float = -0.5) {
+//        guard let pokemonScene = SCNScene(named: "art.scnassets/eevee.scn") else { return }
+//        let pokemonNode = SCNNode()
+//        let pokemonSceneChildNodes = pokemonScene.rootNode.childNodes
+//        for childNode in pokemonSceneChildNodes {
+//            pokemonNode.addChildNode(childNode)
+//        }
+//        pokemonNode.position = SCNVector3(x, y, z)
+//        pokemonNode.runAction(.fadeIn(duration: 1))
+//        sceneView.scene.rootNode.addChildNode(pokemonNode)
+//    }
+//
+//    func addMewtwo(x: Float = 0, y: Float = 0.2, z: Float = -0.5) {
+//        guard let pokemonScene = SCNScene(named: "art.scnassets/mewtwo.scn") else { return }
+//        let pokemonNode = SCNNode()
+//        let pokemonSceneChildNodes = pokemonScene.rootNode.childNodes
+//        for childNode in pokemonSceneChildNodes {
+//            pokemonNode.addChildNode(childNode)
+//        }
+//        pokemonNode.position = SCNVector3(x, y, z)
+//        pokemonNode.runAction(.fadeIn(duration: 1))
+//        sceneView.scene.rootNode.addChildNode(pokemonNode)
+//    }
+//
+//    func addBulbassaur(x: Float = 0, y: Float = 0.2, z: Float = -0.5) {
+//        guard let pokemonScene = SCNScene(named: "art.scnassets/bulbasaur.scn") else { return }
+//        let pokemonNode = SCNNode()
+//        let pokemonSceneChildNodes = pokemonScene.rootNode.childNodes
+//        for childNode in pokemonSceneChildNodes {
+//            pokemonNode.addChildNode(childNode)
+//        }
+//        pokemonNode.position = SCNVector3(x, y, z)
+//        pokemonNode.runAction(.fadeIn(duration: 1))
+//        sceneView.scene.rootNode.addChildNode(pokemonNode)
+//    }
+
