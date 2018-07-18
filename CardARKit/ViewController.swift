@@ -21,11 +21,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLighting()
-        addPokemon()
+//        addPokemon()
         sceneView.delegate = self
     }
 
-    func addPokemon(x: Float = 0, y: Float = 0, z: Float = -0.5) {
+    func addEevee(x: Float = 0, y: Float = 0.2, z: Float = -0.5) {
         guard let pokemonScene = SCNScene(named: "art.scnassets/eevee.scn") else { return }
         let pokemonNode = SCNNode()
         let pokemonSceneChildNodes = pokemonScene.rootNode.childNodes
@@ -33,6 +33,19 @@ class ViewController: UIViewController {
             pokemonNode.addChildNode(childNode)
         }
         pokemonNode.position = SCNVector3(x, y, z)
+        pokemonNode.runAction(.fadeIn(duration: 1))
+        sceneView.scene.rootNode.addChildNode(pokemonNode)
+    }
+
+    func addMewtwo(x: Float = 0, y: Float = 0.2, z: Float = -0.5) {
+        guard let pokemonScene = SCNScene(named: "art.scnassets/mewtwo.scn") else { return }
+        let pokemonNode = SCNNode()
+        let pokemonSceneChildNodes = pokemonScene.rootNode.childNodes
+        for childNode in pokemonSceneChildNodes {
+            pokemonNode.addChildNode(childNode)
+        }
+        pokemonNode.position = SCNVector3(x, y, z)
+        pokemonNode.runAction(.fadeIn(duration: 1))
         sceneView.scene.rootNode.addChildNode(pokemonNode)
     }
 
@@ -80,10 +93,10 @@ class ViewController: UIViewController {
         return node
     }()
 
-    lazy var bookNode: SCNNode = {
-        guard let scene = SCNScene(named: "book.scn"),
-            let node = scene.rootNode.childNode(withName: "book", recursively: false) else { return SCNNode() }
-        let scaleFactor  = 0.1
+    lazy var eeveeNode: SCNNode = {
+        guard let scene = SCNScene(named: "art.scnassets/eevee.scn"),
+            let node = scene.rootNode.childNode(withName: "eevee", recursively: false) else { return SCNNode() }
+        let scaleFactor  = 0.9
         node.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
         return node
     }()
@@ -113,21 +126,26 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: ARSCNViewDelegate {
-
+    
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        guard let imageAnchor = anchor as? ARImageAnchor else { return }
-        let referenceImage = imageAnchor.referenceImage
-        let imageName = referenceImage.name ?? "no name"
-
-        let plane = SCNPlane(width: referenceImage.physicalSize.width, height: referenceImage.physicalSize.height)
-        let planeNode = SCNNode(geometry: plane)
-        planeNode.opacity = 0.20
-        planeNode.eulerAngles.x = -.pi / 2
-
-        planeNode.runAction(self.fadeAction)
-
-        node.addChildNode(planeNode)
         DispatchQueue.main.async {
+            guard let imageAnchor = anchor as? ARImageAnchor,
+                let imageName = imageAnchor.referenceImage.name else { return }
+
+            // TODO: Comment out code
+            //            let planeNode = self.getPlaneNode(withReferenceImage: imageAnchor.referenceImage)
+            //            planeNode.opacity = 0.0
+            //            planeNode.eulerAngles.x = -.pi / 2
+            //            planeNode.runAction(self.fadeAction)
+            //            node.addChildNode(planeNode)
+
+            // TODO: Overlay 3D Object
+            let overlayNode = self.getNode(withImageName: imageName)
+            overlayNode.opacity = 0
+            overlayNode.position.y = 0.2
+//            overlayNode.runAction(self)
+            node.addChildNode(overlayNode)
+
             self.label.text = "Image detected: \"\(imageName)\""
         }
     }
@@ -142,10 +160,10 @@ extension ViewController: ARSCNViewDelegate {
     func getNode(withImageName name: String) -> SCNNode {
         var node = SCNNode()
         switch name {
-        case "Eevee":
-            node = bookNode
-        case "Snow Mountain":
-            node = mountainNode
+        case "eevee":
+            addEevee()
+        case "mewtwo":
+            addMewtwo()
         case "Trees In the Dark":
             node = treeNode
         default:

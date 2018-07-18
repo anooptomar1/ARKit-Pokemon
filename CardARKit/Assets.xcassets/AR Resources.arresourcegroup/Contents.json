@@ -5,7 +5,10 @@
   },
   "resources" : [
     {
-      "filename" : "eeveeCard.arreferenceimage"
+      "filename" : "eevee.arreferenceimage"
+    },
+    {
+      "filename" : "mewtwo.arreferenceimage"
     }
   ]
 }
