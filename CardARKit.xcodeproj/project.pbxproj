@@ -14,8 +14,9 @@
 		423A936F20FA53DB00B6ABE2 /* CardARKit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 423A936D20FA53DB00B6ABE2 /* CardARKit.xcdatamodeld */; };
 		423A937120FA53DE00B6ABE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 423A937020FA53DE00B6ABE2 /* Assets.xcassets */; };
 		423A937420FA53DE00B6ABE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 423A937220FA53DE00B6ABE2 /* LaunchScreen.storyboard */; };
-		427C4AEB20FFBDD400529855 /* eevee.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 427C4AEA20FFBDD200529855 /* eevee.mp3 */; };
 		42F32B892100DF1B00583107 /* bulbasaur.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 42F32B882100DF1A00583107 /* bulbasaur.mp3 */; };
+		42F32B8B2100F1DC00583107 /* eevee.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 42F32B8A2100F1DB00583107 /* eevee.mp3 */; };
+		42F32B8D2100F28900583107 /* pikachu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 42F32B8C2100F28800583107 /* pikachu.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,8 +29,9 @@
 		423A937020FA53DE00B6ABE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		423A937320FA53DE00B6ABE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		423A937520FA53DE00B6ABE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		427C4AEA20FFBDD200529855 /* eevee.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = eevee.mp3; sourceTree = "<group>"; };
 		42F32B882100DF1A00583107 /* bulbasaur.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bulbasaur.mp3; sourceTree = "<group>"; };
+		42F32B8A2100F1DB00583107 /* eevee.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = eevee.mp3; sourceTree = "<group>"; };
+		42F32B8C2100F28800583107 /* pikachu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pikachu.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,8 +66,9 @@
 			children = (
 				4207047020FCE01B000CE687 /* art.scnassets */,
 				423A936620FA53DB00B6ABE2 /* AppDelegate.swift */,
+				42F32B8A2100F1DB00583107 /* eevee.mp3 */,
+				42F32B8C2100F28800583107 /* pikachu.mp3 */,
 				42F32B882100DF1A00583107 /* bulbasaur.mp3 */,
-				427C4AEA20FFBDD200529855 /* eevee.mp3 */,
 				423A936820FA53DB00B6ABE2 /* ViewController.swift */,
 				423A936A20FA53DB00B6ABE2 /* Main.storyboard */,
 				423A937020FA53DE00B6ABE2 /* Assets.xcassets */,
@@ -135,10 +138,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				423A937420FA53DE00B6ABE2 /* LaunchScreen.storyboard in Resources */,
+				42F32B8B2100F1DC00583107 /* eevee.mp3 in Resources */,
 				4207047120FCE01B000CE687 /* art.scnassets in Resources */,
 				423A937120FA53DE00B6ABE2 /* Assets.xcassets in Resources */,
+				42F32B8D2100F28900583107 /* pikachu.mp3 in Resources */,
 				42F32B892100DF1B00583107 /* bulbasaur.mp3 in Resources */,
-				427C4AEB20FFBDD400529855 /* eevee.mp3 in Resources */,
 				423A936C20FA53DB00B6ABE2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

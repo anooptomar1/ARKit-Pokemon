@@ -19,15 +19,29 @@ class ViewController: UIViewController {
     var pikachuSound: SCNAudioSource?
     var bulbasaurSound: SCNAudioSource?
 
-
+    @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var backgroundView: UIView!
+
+    @IBOutlet weak var pokeballStartView: UIImageView!
+    @IBOutlet weak var labelStartView: UILabel!
+    @IBOutlet weak var buttonStartView: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLighting()
         sceneView.delegate = self
         setupSound()
+        refreshButton.layer.cornerRadius = 6
+        buttonStartView.layer.cornerRadius = 6
+        refreshButton.isHidden = true
+        label.isHidden = true
+        backgroundView.isHidden = true
+
+    }
+    override var prefersStatusBarHidden : Bool {
+        return true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -62,8 +76,17 @@ class ViewController: UIViewController {
                 return
         }
         bulbasaurSound = bulbasaurSource
+
+        guard let pikachuSource = SCNAudioSource(fileNamed: "pikachu.mp3")
+            else {
+                print("Error pikachu Sound")
+                return
+        }
+        pikachuSound = pikachuSource
+
         eeveeSound!.load()
         bulbasaurSound!.load()
+        pikachuSound!.load()
 
     }
 
@@ -91,11 +114,6 @@ class ViewController: UIViewController {
         for childNode in pokemonSceneChildNodes {
             pokemonNode.addChildNode(childNode)
         }
-
-//        guard let audioSource = SCNAudioSource(fileNamed: "eeveeSound.mp3") else { return SCNNode()}
-//        audioSource.load()
-//        let action = SCNAction.playAudio(audioSource, waitForCompletion: true)
-//        pokemonNode.runAction(action)
 
         return pokemonNode
     }()
@@ -130,10 +148,6 @@ class ViewController: UIViewController {
         return pokemonNode
     }()
 
-    @IBAction func resetButtonDidTouch(_ sender: UIBarButtonItem) {
-        resetTrackingConfiguration()
-
-    }
     func resetTrackingConfiguration() {
         guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) else { return }
         let configuration = ARWorldTrackingConfiguration()
@@ -143,6 +157,19 @@ class ViewController: UIViewController {
         label.text = "Move camera around to detect images"
     }
 
+    @IBAction func refreshButtonPressed(_ sender: Any) {
+        resetTrackingConfiguration()
+    }
+    @IBAction func startButtonPressed(_ sender: Any) {
+        resetTrackingConfiguration()
+        pokeballStartView.isHidden = true
+        labelStartView.isHidden = true
+        buttonStartView.isHidden = true
+
+        refreshButton.isHidden = false
+        label.isHidden = false
+        backgroundView.isHidden = false
+    }
 }
 
 extension ViewController: ARSCNViewDelegate {
@@ -157,10 +184,10 @@ extension ViewController: ARSCNViewDelegate {
             overlayNode.runAction(self.fadeAndSpinAction)
             node.addChildNode(overlayNode)
 
-//            let sound = self.getSound(withName: imageName)
-//            let pokeSound = SCNAction.playAudio(sound, waitForCompletion: false)
-//            overlayNode.runAction(pokeSound)
-            self.label.text = "Image detected: \"\(imageName)\""
+            let sound = self.getSound(withName: imageName)
+            let pokeSound = SCNAction.playAudio(sound, waitForCompletion: false)
+            overlayNode.runAction(pokeSound)
+            self.label.text = "Pokemon detected: \"\(imageName)\""
         }
     }
 

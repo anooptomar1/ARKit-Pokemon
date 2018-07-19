@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,54 +22,106 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ulZ-fe-Ek2">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </arscnView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Move camera around to detect images" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0jm-5i-taK">
-                                <rect key="frame" x="0.0" y="579" width="375" height="44"/>
-                                <color key="backgroundColor" white="1" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mV5-HM-2OD">
+                                <rect key="frame" x="0.0" y="593" width="375" height="74"/>
+                                <color key="backgroundColor" red="0.074509803921568626" green="0.46274509803921571" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="rqq-r3-YMg"/>
+                                    <constraint firstAttribute="height" constant="74" id="kWp-j3-Xnx"/>
                                 </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Move camera to detect pokemon cards!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wA-XM-39i">
+                                <rect key="frame" x="0.0" y="603" width="375" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.89999997615814209" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTb-A1-UQ4">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="NZT-ar-K87"/>
-                                    <barButtonItem systemItem="refresh" id="XCq-pP-Q3y">
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <connections>
-                                            <action selector="resetButtonDidTouch:" destination="BYZ-38-t0r" id="4Ro-aX-9Wc"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="DSX-3k-0If"/>
-                                </items>
-                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XtL-aL-bcp">
+                                <rect key="frame" x="110" y="632" width="163" height="30"/>
+                                <color key="backgroundColor" red="0.074509803920000006" green="0.79413736270000002" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="163" id="Tee-rC-AZs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                                <state key="normal" title="Refresh">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="refreshButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OaT-zc-VTQ"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pokeball" translatesAutoresizingMaskIntoConstraints="NO" id="hyk-mx-5IY">
+                                <rect key="frame" x="142" y="180" width="90" height="90"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="hyk-mx-5IY" secondAttribute="height" multiplier="1:1" id="3mi-gW-pIM"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to PokemonAR! Move your camera focusing on a Pokemon card and see what happens :)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sGk-u4-4ni">
+                                <rect key="frame" x="70" y="292" width="235" height="102"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TJ0-f9-GaK">
+                                <rect key="frame" x="147" y="409" width="80" height="30"/>
+                                <color key="backgroundColor" red="0.074509803920000006" green="0.79413736270000002" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="rhC-dK-Dd9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="START">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="startButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qUA-07-B8Y"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="RTb-A1-UQ4" firstAttribute="width" secondItem="0jm-5i-taK" secondAttribute="width" id="KIJ-Sg-QFJ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="RTb-A1-UQ4" secondAttribute="bottom" id="PCz-iE-Eh8"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0jm-5i-taK" secondAttribute="trailing" id="Qck-jq-Hj5"/>
-                            <constraint firstItem="RTb-A1-UQ4" firstAttribute="centerX" secondItem="0jm-5i-taK" secondAttribute="centerX" id="Web-Kz-cEE"/>
-                            <constraint firstItem="0jm-5i-taK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="YrD-CN-NMU"/>
-                            <constraint firstItem="RTb-A1-UQ4" firstAttribute="top" secondItem="0jm-5i-taK" secondAttribute="bottom" id="eaZ-Mt-fsb"/>
+                            <constraint firstItem="sGk-u4-4ni" firstAttribute="centerY" secondItem="ulZ-fe-Ek2" secondAttribute="centerY" id="5jD-oi-SVQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sGk-u4-4ni" secondAttribute="trailing" constant="70" id="8no-pU-4lm"/>
+                            <constraint firstItem="XtL-aL-bcp" firstAttribute="top" secondItem="mV5-HM-2OD" secondAttribute="bottom" constant="-35" id="9Ur-yl-Nga"/>
+                            <constraint firstItem="mV5-HM-2OD" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="EUx-ud-I9x"/>
+                            <constraint firstItem="hyk-mx-5IY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="142" id="F5i-rF-yNR"/>
+                            <constraint firstItem="4wA-XM-39i" firstAttribute="width" secondItem="mV5-HM-2OD" secondAttribute="width" id="Juk-Ii-DKl"/>
+                            <constraint firstItem="hyk-mx-5IY" firstAttribute="centerX" secondItem="ulZ-fe-Ek2" secondAttribute="centerX" id="K7i-yV-1cB"/>
+                            <constraint firstItem="mV5-HM-2OD" firstAttribute="centerX" secondItem="ulZ-fe-Ek2" secondAttribute="centerX" id="Ngm-eX-70K"/>
+                            <constraint firstItem="mV5-HM-2OD" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="PLj-iQ-Mdv"/>
+                            <constraint firstItem="sGk-u4-4ni" firstAttribute="top" secondItem="hyk-mx-5IY" secondAttribute="bottom" constant="22" id="SOg-Yh-Chq"/>
+                            <constraint firstItem="TJ0-f9-GaK" firstAttribute="centerX" secondItem="sGk-u4-4ni" secondAttribute="centerX" id="UKG-bs-xfy"/>
+                            <constraint firstItem="sGk-u4-4ni" firstAttribute="centerX" secondItem="hyk-mx-5IY" secondAttribute="centerX" id="WPn-hQ-OMQ"/>
+                            <constraint firstItem="4wA-XM-39i" firstAttribute="centerX" secondItem="mV5-HM-2OD" secondAttribute="centerX" id="Yt2-RP-ahj"/>
+                            <constraint firstItem="mV5-HM-2OD" firstAttribute="width" secondItem="ulZ-fe-Ek2" secondAttribute="width" id="Zim-xP-Vld"/>
+                            <constraint firstItem="sGk-u4-4ni" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="70" id="b7q-oV-blZ"/>
+                            <constraint firstItem="XtL-aL-bcp" firstAttribute="centerX" secondItem="4wA-XM-39i" secondAttribute="centerX" id="bb6-2M-S5B"/>
+                            <constraint firstItem="TJ0-f9-GaK" firstAttribute="top" secondItem="sGk-u4-4ni" secondAttribute="bottom" constant="15" id="cxv-TN-rCY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ulZ-fe-Ek2" secondAttribute="bottom" id="ehc-WV-YF5"/>
                             <constraint firstItem="ulZ-fe-Ek2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fbA-fX-Fui"/>
                             <constraint firstItem="ulZ-fe-Ek2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="h1e-Kw-IDi"/>
-                            <constraint firstItem="0jm-5i-taK" firstAttribute="centerX" secondItem="ulZ-fe-Ek2" secondAttribute="centerX" id="oBH-ga-Oyt"/>
+                            <constraint firstItem="mV5-HM-2OD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="q69-9b-3DS"/>
+                            <constraint firstItem="sGk-u4-4ni" firstAttribute="centerX" secondItem="ulZ-fe-Ek2" secondAttribute="centerX" id="rmr-CI-TbQ"/>
+                            <constraint firstItem="hyk-mx-5IY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="160" id="so6-Fi-bDS"/>
+                            <constraint firstItem="mV5-HM-2OD" firstAttribute="top" secondItem="4wA-XM-39i" secondAttribute="bottom" constant="-31" id="tWu-Ov-fVJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ulZ-fe-Ek2" secondAttribute="trailing" id="wz3-AM-gbA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="label" destination="0jm-5i-taK" id="3nD-c3-4tv"/>
+                        <outlet property="backgroundView" destination="mV5-HM-2OD" id="ef3-cd-IJU"/>
+                        <outlet property="buttonStartView" destination="TJ0-f9-GaK" id="kJm-gv-Lmn"/>
+                        <outlet property="label" destination="4wA-XM-39i" id="qJG-lC-ub6"/>
+                        <outlet property="labelStartView" destination="sGk-u4-4ni" id="tdf-UM-Zcc"/>
+                        <outlet property="pokeballStartView" destination="hyk-mx-5IY" id="gQM-4n-wFc"/>
+                        <outlet property="refreshButton" destination="XtL-aL-bcp" id="nwv-NC-NEu"/>
                         <outlet property="sceneView" destination="ulZ-fe-Ek2" id="J2R-je-fgR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="133.5832083958021"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="pokeball" width="512" height="512"/>
+    </resources>
 </document>
