@@ -17,6 +17,7 @@
 		42F32B892100DF1B00583107 /* bulbasaur.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 42F32B882100DF1A00583107 /* bulbasaur.mp3 */; };
 		42F32B8B2100F1DC00583107 /* eevee.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 42F32B8A2100F1DB00583107 /* eevee.mp3 */; };
 		42F32B8D2100F28900583107 /* pikachu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 42F32B8C2100F28800583107 /* pikachu.mp3 */; };
+		42F32B8F2100FEBE00583107 /* charizard.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 42F32B8E2100FEBE00583107 /* charizard.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		42F32B882100DF1A00583107 /* bulbasaur.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bulbasaur.mp3; sourceTree = "<group>"; };
 		42F32B8A2100F1DB00583107 /* eevee.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = eevee.mp3; sourceTree = "<group>"; };
 		42F32B8C2100F28800583107 /* pikachu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pikachu.mp3; sourceTree = "<group>"; };
+		42F32B8E2100FEBE00583107 /* charizard.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = charizard.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				4207047020FCE01B000CE687 /* art.scnassets */,
 				423A936620FA53DB00B6ABE2 /* AppDelegate.swift */,
 				42F32B8A2100F1DB00583107 /* eevee.mp3 */,
+				42F32B8E2100FEBE00583107 /* charizard.mp3 */,
 				42F32B8C2100F28800583107 /* pikachu.mp3 */,
 				42F32B882100DF1A00583107 /* bulbasaur.mp3 */,
 				423A936820FA53DB00B6ABE2 /* ViewController.swift */,
@@ -143,6 +146,7 @@
 				423A937120FA53DE00B6ABE2 /* Assets.xcassets in Resources */,
 				42F32B8D2100F28900583107 /* pikachu.mp3 in Resources */,
 				42F32B892100DF1B00583107 /* bulbasaur.mp3 in Resources */,
+				42F32B8F2100FEBE00583107 /* charizard.mp3 in Resources */,
 				423A936C20FA53DB00B6ABE2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

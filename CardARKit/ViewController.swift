@@ -12,12 +12,13 @@ import ARKit
 class ViewController: UIViewController {
 
     let fadeDuration: TimeInterval = 0.3
-    let rotateDuration: TimeInterval = 5
+    let rotateDuration: TimeInterval = 4
     let waitDuration: TimeInterval = 0.5
 
     var eeveeSound: SCNAudioSource?
     var pikachuSound: SCNAudioSource?
     var bulbasaurSound: SCNAudioSource?
+    var charizardSound: SCNAudioSource?
 
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var sceneView: ARSCNView!
@@ -27,85 +28,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var pokeballStartView: UIImageView!
     @IBOutlet weak var labelStartView: UILabel!
     @IBOutlet weak var buttonStartView: UIButton!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureLighting()
-        sceneView.delegate = self
-        setupSound()
-        refreshButton.layer.cornerRadius = 6
-        buttonStartView.layer.cornerRadius = 6
-        refreshButton.isHidden = true
-        label.isHidden = true
-        backgroundView.isHidden = true
-
-    }
-    override var prefersStatusBarHidden : Bool {
-        return true
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let configuration = ARWorldTrackingConfiguration()
-        resetTrackingConfiguration()
-        sceneView.session.run(configuration)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        sceneView.session.pause()
-    }
-
-
-    func configureLighting() {
-        sceneView.autoenablesDefaultLighting = true
-        sceneView.automaticallyUpdatesLighting = true
-    }
-
-    func setupSound() {
-        guard let eeveeSource = SCNAudioSource(fileNamed: "eevee.mp3")
-        else {
-                print("Error eevee Sound")
-                return
-        }
-        eeveeSound = eeveeSource
-
-        guard let bulbasaurSource = SCNAudioSource(fileNamed: "bulbasaur.mp3")
-            else {
-                print("Error bulbasaur Sound")
-                return
-        }
-        bulbasaurSound = bulbasaurSource
-
-        guard let pikachuSource = SCNAudioSource(fileNamed: "pikachu.mp3")
-            else {
-                print("Error pikachu Sound")
-                return
-        }
-        pikachuSound = pikachuSource
-
-        eeveeSound!.load()
-        bulbasaurSound!.load()
-        pikachuSound!.load()
-
-    }
-
-    lazy var fadeAndSpinAction: SCNAction = {
-        return .sequence([
-            .fadeIn(duration: fadeDuration),
-            .rotateBy(x: 0, y: 0, z: CGFloat.pi * 360 / 180, duration: rotateDuration),
-            .wait(duration: waitDuration),
-            .fadeOut(duration: fadeDuration)
-            ])
-    }()
-
-    lazy var fadeAction: SCNAction = {
-        return .sequence([
-            .fadeOpacity(by: 0.8, duration: fadeDuration),
-            .wait(duration: waitDuration),
-            .fadeOut(duration: fadeDuration)
-            ])
-    }()
 
     lazy var eeveeNode: SCNNode = {
         guard let pokemonScene = SCNScene(named: "art.scnassets/eevee.scn") else { return SCNNode() }
@@ -114,7 +36,6 @@ class ViewController: UIViewController {
         for childNode in pokemonSceneChildNodes {
             pokemonNode.addChildNode(childNode)
         }
-
         return pokemonNode
     }()
 
@@ -148,6 +69,103 @@ class ViewController: UIViewController {
         return pokemonNode
     }()
 
+    lazy var charizardNode: SCNNode = {
+        guard let pokemonScene = SCNScene(named: "art.scnassets/charizard.scn") else { return SCNNode()}
+        let pokemonNode = SCNNode()
+        let pokemonSceneChildNodes = pokemonScene.rootNode.childNodes
+        for childNode in pokemonSceneChildNodes {
+            pokemonNode.addChildNode(childNode)
+        }
+        return pokemonNode
+    }()
+
+    lazy var fadeAndSpinAction: SCNAction = {
+        return .sequence([
+            .fadeIn(duration: fadeDuration),
+            .rotateBy(x: 0, y: 0, z: CGFloat.pi * 360 / 180, duration: rotateDuration),
+            .wait(duration: waitDuration),
+            .fadeOut(duration: fadeDuration)
+            ])
+    }()
+
+    lazy var fadeAction: SCNAction = {
+        return .sequence([
+            .fadeOpacity(by: 0.8, duration: fadeDuration),
+            .wait(duration: waitDuration),
+            .fadeOut(duration: fadeDuration)
+            ])
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureLighting()
+        sceneView.delegate = self
+        setupSound()
+        refreshButton.layer.cornerRadius = 6
+        buttonStartView.layer.cornerRadius = 6
+        refreshButton.isHidden = true
+        label.isHidden = true
+        backgroundView.isHidden = true
+
+    }
+
+    override var prefersStatusBarHidden : Bool {
+        return true
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let configuration = ARWorldTrackingConfiguration()
+        resetTrackingConfiguration()
+        sceneView.session.run(configuration)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        sceneView.session.pause()
+    }
+
+    func configureLighting() {
+        sceneView.autoenablesDefaultLighting = true
+        sceneView.automaticallyUpdatesLighting = true
+    }
+
+    func setupSound() {
+        guard let eeveeSource = SCNAudioSource(fileNamed: "eevee.mp3")
+        else {
+            print("Error eevee Sound")
+            return
+        }
+        eeveeSound = eeveeSource
+
+        guard let bulbasaurSource = SCNAudioSource(fileNamed: "bulbasaur.mp3")
+        else {
+            print("Error bulbasaur Sound")
+            return
+        }
+        bulbasaurSound = bulbasaurSource
+
+        guard let pikachuSource = SCNAudioSource(fileNamed: "pikachu.mp3")
+        else {
+            print("Error pikachu Sound")
+            return
+        }
+        pikachuSound = pikachuSource
+
+        guard let charizardSource = SCNAudioSource(fileNamed: "charizard.mp3")
+        else {
+            print("Error charizard Sound")
+            return
+        }
+        charizardSound = charizardSource
+
+        eeveeSound!.load()
+        bulbasaurSound!.load()
+        pikachuSound!.load()
+        charizardSound!.load()
+
+    }
+
     func resetTrackingConfiguration() {
         guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) else { return }
         let configuration = ARWorldTrackingConfiguration()
@@ -160,6 +178,7 @@ class ViewController: UIViewController {
     @IBAction func refreshButtonPressed(_ sender: Any) {
         resetTrackingConfiguration()
     }
+
     @IBAction func startButtonPressed(_ sender: Any) {
         resetTrackingConfiguration()
         pokeballStartView.isHidden = true
@@ -208,6 +227,8 @@ extension ViewController: ARSCNViewDelegate {
             source = self.pikachuSound!
         case "bulbasaur":
             source = self.bulbasaurSound!
+        case "charizard":
+            source = self.charizardSound!
         default:
             break
         }
@@ -225,46 +246,11 @@ extension ViewController: ARSCNViewDelegate {
             node = bulbasaurNode
         case "pikachu":
             node = pikachuNode
+        case "charizard":
+            node = charizardNode
         default:
             break
         }
         return node
     }
 }
-
-//    func addEevee(x: Float = 0, y: Float = 0.2, z: Float = -0.5) {
-//        guard let pokemonScene = SCNScene(named: "art.scnassets/eevee.scn") else { return }
-//        let pokemonNode = SCNNode()
-//        let pokemonSceneChildNodes = pokemonScene.rootNode.childNodes
-//        for childNode in pokemonSceneChildNodes {
-//            pokemonNode.addChildNode(childNode)
-//        }
-//        pokemonNode.position = SCNVector3(x, y, z)
-//        pokemonNode.runAction(.fadeIn(duration: 1))
-//        sceneView.scene.rootNode.addChildNode(pokemonNode)
-//    }
-//
-//    func addMewtwo(x: Float = 0, y: Float = 0.2, z: Float = -0.5) {
-//        guard let pokemonScene = SCNScene(named: "art.scnassets/mewtwo.scn") else { return }
-//        let pokemonNode = SCNNode()
-//        let pokemonSceneChildNodes = pokemonScene.rootNode.childNodes
-//        for childNode in pokemonSceneChildNodes {
-//            pokemonNode.addChildNode(childNode)
-//        }
-//        pokemonNode.position = SCNVector3(x, y, z)
-//        pokemonNode.runAction(.fadeIn(duration: 1))
-//        sceneView.scene.rootNode.addChildNode(pokemonNode)
-//    }
-//
-//    func addBulbassaur(x: Float = 0, y: Float = 0.2, z: Float = -0.5) {
-//        guard let pokemonScene = SCNScene(named: "art.scnassets/bulbasaur.scn") else { return }
-//        let pokemonNode = SCNNode()
-//        let pokemonSceneChildNodes = pokemonScene.rootNode.childNodes
-//        for childNode in pokemonSceneChildNodes {
-//            pokemonNode.addChildNode(childNode)
-//        }
-//        pokemonNode.position = SCNVector3(x, y, z)
-//        pokemonNode.runAction(.fadeIn(duration: 1))
-//        sceneView.scene.rootNode.addChildNode(pokemonNode)
-//    }
-
