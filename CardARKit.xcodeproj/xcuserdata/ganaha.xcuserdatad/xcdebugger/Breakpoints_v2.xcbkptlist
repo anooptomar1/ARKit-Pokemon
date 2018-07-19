@@ -10,28 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CardARKit/ViewController.swift"
-            timestampString = "553617766.263846"
+            timestampString = "553706188.077916"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "renderer(_:didAdd:for:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CardARKit/ViewController.swift"
-            timestampString = "553617766.2644579"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "getNode(withImageName:)"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
+            landmarkName = "getPlaneNode(withReferenceImage:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

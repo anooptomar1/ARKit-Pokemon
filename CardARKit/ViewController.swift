@@ -15,6 +15,11 @@ class ViewController: UIViewController {
     let rotateDuration: TimeInterval = 5
     let waitDuration: TimeInterval = 0.5
 
+    var eeveeSound: SCNAudioSource?
+    var pikachuSound: SCNAudioSource?
+    var bulbasaurSound: SCNAudioSource?
+
+
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var label: UILabel!
     
@@ -22,6 +27,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         configureLighting()
         sceneView.delegate = self
+        setupSound()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -40,6 +46,25 @@ class ViewController: UIViewController {
     func configureLighting() {
         sceneView.autoenablesDefaultLighting = true
         sceneView.automaticallyUpdatesLighting = true
+    }
+
+    func setupSound() {
+        guard let eeveeSource = SCNAudioSource(fileNamed: "eevee.mp3")
+        else {
+                print("Error eevee Sound")
+                return
+        }
+        eeveeSound = eeveeSource
+
+        guard let bulbasaurSource = SCNAudioSource(fileNamed: "bulbasaur.mp3")
+            else {
+                print("Error bulbasaur Sound")
+                return
+        }
+        bulbasaurSound = bulbasaurSource
+        eeveeSound!.load()
+        bulbasaurSound!.load()
+
     }
 
     lazy var fadeAndSpinAction: SCNAction = {
@@ -66,6 +91,12 @@ class ViewController: UIViewController {
         for childNode in pokemonSceneChildNodes {
             pokemonNode.addChildNode(childNode)
         }
+
+//        guard let audioSource = SCNAudioSource(fileNamed: "eeveeSound.mp3") else { return SCNNode()}
+//        audioSource.load()
+//        let action = SCNAction.playAudio(audioSource, waitForCompletion: true)
+//        pokemonNode.runAction(action)
+
         return pokemonNode
     }()
 
@@ -81,6 +112,16 @@ class ViewController: UIViewController {
 
     lazy var bulbasaurNode: SCNNode = {
         guard let pokemonScene = SCNScene(named: "art.scnassets/bulbasaur.scn") else { return SCNNode()}
+        let pokemonNode = SCNNode()
+        let pokemonSceneChildNodes = pokemonScene.rootNode.childNodes
+        for childNode in pokemonSceneChildNodes {
+            pokemonNode.addChildNode(childNode)
+        }
+        return pokemonNode
+    }()
+
+    lazy var pikachuNode: SCNNode = {
+        guard let pokemonScene = SCNScene(named: "art.scnassets/pikachu.scn") else { return SCNNode()}
         let pokemonNode = SCNNode()
         let pokemonSceneChildNodes = pokemonScene.rootNode.childNodes
         for childNode in pokemonSceneChildNodes {
@@ -115,6 +156,10 @@ extension ViewController: ARSCNViewDelegate {
             let overlayNode = self.getNode(withImageName: imageName)
             overlayNode.runAction(self.fadeAndSpinAction)
             node.addChildNode(overlayNode)
+
+//            let sound = self.getSound(withName: imageName)
+//            let pokeSound = SCNAction.playAudio(sound, waitForCompletion: false)
+//            overlayNode.runAction(pokeSound)
             self.label.text = "Image detected: \"\(imageName)\""
         }
     }
@@ -123,7 +168,23 @@ extension ViewController: ARSCNViewDelegate {
         let plane = SCNPlane(width: image.physicalSize.width,
                              height: image.physicalSize.height)
         let node = SCNNode(geometry: plane)
+
         return node
+    }
+
+    func getSound(withName name: String) -> SCNAudioSource {
+        var source = SCNAudioSource()
+        switch name {
+        case "eevee":
+            source = self.eeveeSound!
+        case "pikachu":
+            source = self.pikachuSound!
+        case "bulbasaur":
+            source = self.bulbasaurSound!
+        default:
+            break
+        }
+        return source
     }
 
     func getNode(withImageName name: String) -> SCNNode {
@@ -135,6 +196,8 @@ extension ViewController: ARSCNViewDelegate {
             node = mewtwoNode
         case "bulbasaur":
             node = bulbasaurNode
+        case "pikachu":
+            node = pikachuNode
         default:
             break
         }
